@@ -4,18 +4,10 @@
  * Assignment 5
  */
 /**
- * Starting time recorded before execution
- * Finishing time recorded after "Done with (insert sort type here) sort" was printed
- * Total sort times calculated using the RecursiveFibonacciTime
- * Bubble sort starting time: pm
- * Bubble sort finishing time: pm
- * Total sort time:
- * Selection sort starting time: pm
- * Selection sort finishing time: pm
- * Total sort time: 
- * Quick sort starting time: pm
- * Quick sort finishing time pm
- * Total sort time: 
+ * Bubble sort total sort time: 33 minutes
+ * Selection sort total sort time: 2 minutes
+ * Quick sort total sort time: 0 minutes
+ * Quick sort total sort time (100 million): 0 minutes
  */
 import java.util.Random;
 public class EmpiricalStudy {
@@ -204,8 +196,10 @@ public class EmpiricalStudy {
      }
   }
   /**
-   * Creates a random number between 1-100000 for each index of 3 arrays.
-   * Uses bubble sort, selection sort, and quick sort to sort an array. 
+   * Creates a random number between 1-100000 for each index of 3 arrays of size 1 million.
+   * Uses bubble sort, selection sort, and quick sort to sort an array.
+   * Uses part of FibonacciTimer to calculate sort time in minutes and seconds.
+   * Creates a 100 million random integers and calculates time in minutes and seconds quick sort took to sort them.
    */
   public static void main(String[] args) {
     Random r = new Random();
@@ -214,14 +208,39 @@ public class EmpiricalStudy {
     int c[] = new int[1000001];
     for (int index = 0; index < 1000001; index++) {
         a[index] = r.nextInt(100000) + 1;
-        //b[index] = r.nextInt(100000) + 1;
-        //c[index] = r.nextInt(100000) + 1;
+        b[index] = r.nextInt(100000) + 1;
+        c[index] = r.nextInt(100000) + 1;
     }
+    long currentTime;
+    long previousTime;
+    long elapsedTime = 0;
+    currentTime =  System.currentTimeMillis();
+    previousTime = currentTime;
     bubbleSort(a);
-    System.out.println("Done with bubble sort.");
+    currentTime = System.currentTimeMillis();
+    elapsedTime = ((currentTime - previousTime)/1000)/60%60;
+    System.out.println("Computed in "+ elapsedTime +" minutes");
+    currentTime = System.currentTimeMillis();
+    previousTime = currentTime;
     selectionSort(a);
-    System.out.println("Done with selection sort.");
+    currentTime = System.currentTimeMillis();
+    elapsedTime = ((currentTime - previousTime)/1000)/60%60;
+    System.out.println("Computed in "+ elapsedTime +" minutes");
+    currentTime =  System.currentTimeMillis();
+    previousTime = currentTime;
     quickSort(a);
-    System.out.println("Done with quick sort.");
+    currentTime = System.currentTimeMillis();
+    elapsedTime = ((currentTime - previousTime)/1000)/60%60;
+    System.out.println("Computed in "+ elapsedTime +" minutes.");
+    int onehundred[] = new int[100000001];
+    for (int i = 0; i < onehundred.length; i++) {
+      onehundred[i] = r.nextInt();
+    }
+    currentTime =  System.currentTimeMillis();
+    previousTime = currentTime;
+    quickSort(onehundred);
+    currentTime = System.currentTimeMillis();
+    elapsedTime = ((currentTime - previousTime)/1000)/60%60;
+    System.out.println("Computed in "+ elapsedTime +" minutes.");
   }
 }
